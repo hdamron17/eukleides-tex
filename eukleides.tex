@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage{filecontents}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{shellesc}
+
+\newcounter{euk}
+\newenvironment{eukleides}{
+	\refstepcounter{euk}
+	% For some reason using begin/end doesn't work
+	\csname filecontents*\endcsname{diagram\theeuk.euk}
+}{
+	\csname endfilecontents*\endcsname
+	\ShellEscape{eukleides build/diagram\theeuk.euk}
+	\includegraphics[width=\linewidth]{build/diagram\theeuk}
+}
+
+\begin{document}
+	\begin{figure}[h]
+	\centering
+	\caption{text}
+	\begin{eukleides}
+		box -1, -1, 7, 3
+		
+		A B C isosceles
+		H = projection(C, line(A, B))
+		
+		draw
+			(A.B.C)
+			C.H dashed
+			H
+		end
+		
+		label
+			B, H, C right
+			B, A, C double
+			C, B, A double
+			A.H
+			B.H
+			A.C double
+			C.B double
+		end
+	\end{eukleides}
+	\end{figure}
+\end{document}
