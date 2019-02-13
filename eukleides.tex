@@ -1,20 +1,6 @@
 \documentclass{article}
 
-\usepackage{filecontents}
-\usepackage{graphicx}
-\usepackage{epstopdf}
-\usepackage{shellesc}
-
-\newcounter{euk}
-\newenvironment{eukleides}{
-	\refstepcounter{euk}
-	% For some reason using begin/end doesn't work
-	\csname filecontents*\endcsname{diagram\theeuk.euk}
-}{
-	\csname endfilecontents*\endcsname
-	\ShellEscape{eukleides build/diagram\theeuk.euk}
-	\includegraphics[width=\linewidth]{build/diagram\theeuk}
-}
+\usepackage{eukleides}
 
 \begin{document}
 	\begin{figure}[h]
